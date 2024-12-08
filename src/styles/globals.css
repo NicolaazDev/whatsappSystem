@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./fonts.css";
+@import "./colors.css";
+
+@layer base {
+  .center {
+    @apply flex justify-center items-center;
+  }
+
+  .center-col {
+    @apply flex flex-col justify-center items-center;
+  }
+  :root {
+
+    --radius: 0.5rem
+  }
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  * {
+    @apply box-border border-none outline-none m-0 p-0;
+  }
+}
