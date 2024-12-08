@@ -3,12 +3,10 @@
 import { MocksChat } from "@/mocks/agents-chat";
 import api from "@/services/api";
 import { loadFromLocalStorage } from "@/services/storage";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState } from "react";
 
-type Params = Promise<{ appid: string }>;
-
-export default function ChatPage(props: { params: Params }) {
-  const { appid } = use(props.params);
+export default function ChatPage({ params }: { params: { appid: string } }) {
+  const { appid } = params;
 
   const [agents, setAgents] = useState<any>(MocksChat.agents); // Lista de agentes
   const [selectedAgent, setSelectedAgent] = useState<any>(null); // Agente selecionado
