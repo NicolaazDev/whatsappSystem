@@ -12,12 +12,12 @@ const getQrCode = async () => {
   return response.data;
 };
 
-export default async function AgentPage({
-  params,
-}: {
-  params: { agent: string };
-}) {
-  const agent = await getAgent(params.agent);
+type tParams = Promise<{ agent: string }>;
+
+export default async function AgentPage(props: { params: tParams }) {
+  const { agent: agentName } = await props.params;
+
+  const agent = await getAgent(agentName);
   const qrCode = await getQrCode();
 
   console.log(agent);
