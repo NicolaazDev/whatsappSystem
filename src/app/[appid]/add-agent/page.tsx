@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -20,12 +20,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function UserPage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
-  const { appid } = use(params);
+export default function UserPage({ params }: { params: { appid: string } }) {
+  const { appid } = params;
 
   const {
     register,

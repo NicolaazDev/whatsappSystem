@@ -1,7 +1,5 @@
 "use client";
 
-import { use } from "react";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,18 +17,14 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function UserPage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
+export default function UserPage({ params }: { params: { appid: string } }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const { appid } = use(params);
+  const { appid } = params;
 
   const router = useRouter();
 

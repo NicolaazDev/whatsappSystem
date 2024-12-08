@@ -1,12 +1,7 @@
 import { ShieldBan, SquareUser, User } from "lucide-react";
-import { use } from "react";
 
-export default function AdminPage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
-  const { appid } = use(params);
+export default function AdminPage({ params }: { params: { appid: string } }) {
+  const { appid } = params;
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background">

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import InputField from "@/components/inputField";
 import api from "@/services/api";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { loadFromLocalStorage } from "@/services/storage";
 
@@ -18,18 +18,14 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function UserPage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
+export default function UserPage({ params }: { params: { appid: string } }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const { appid } = use(params);
+  const { appid } = params;
 
   const router = useRouter();
 

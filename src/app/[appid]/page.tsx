@@ -9,14 +9,10 @@ import {
   User,
 } from "lucide-react";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function HomePage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
-  const { appid } = use(params);
+export default function HomePage({ params }: { params: { appid: string } }) {
+  const { appid } = params;
 
   const [userPerm, setUserPerm] = useState<any>(null);
 
