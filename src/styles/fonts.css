@@ -1,61 +1,65 @@
-@font-face {
-  font-family: "Poppins Thin";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Thin.ttf");
-}
+@tailwind base;
 
-@font-face {
-  font-family: "Poppins ExtraLight";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-ExtraLight.ttf");
-}
+@layer base {
+  @font-face {
+    font-family: "Poppins Thin";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Thin.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins Light";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Light.ttf");
-}
+  @font-face {
+    font-family: "Poppins ExtraLight";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-ExtraLight.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins Regular";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Regular.ttf");
-}
+  @font-face {
+    font-family: "Poppins Light";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Light.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins Medium";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Medium.ttf");
-}
+  @font-face {
+    font-family: "Poppins Regular";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Regular.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins SemiBold";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-SemiBold.ttf");
-}
+  @font-face {
+    font-family: "Poppins Medium";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Medium.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins Bold";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Bold.ttf");
-}
+  @font-face {
+    font-family: "Poppins SemiBold";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-SemiBold.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins ExtraBold";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-ExtraBold.ttf");
-}
+  @font-face {
+    font-family: "Poppins Bold";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Bold.ttf");
+  }
 
-@font-face {
-  font-family: "Poppins Black";
-  font-style: normal;
-  src: url("../assets/fonts/poppins/Poppins-Black.ttf");
-}
+  @font-face {
+    font-family: "Poppins ExtraBold";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-ExtraBold.ttf");
+  }
 
-/* Futura Font */
+  @font-face {
+    font-family: "Poppins Black";
+    font-style: normal;
+    src: url("/assets/fonts/poppins/Poppins-Black.ttf");
+  }
 
-@font-face {
-  font-family: "Futura ExtraBold";
-  font-style: normal;
-  src: url("../assets/fonts/futura/futura-nd-extrabold.ttf");
+  /* Futura Font */
+
+  @font-face {
+    font-family: "Futura ExtraBold";
+    font-style: normal;
+    src: url("/assets/fonts/futura/futura-nd-extrabold.ttf");
+  }
 }
