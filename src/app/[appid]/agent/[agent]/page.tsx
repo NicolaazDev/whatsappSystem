@@ -1,17 +1,24 @@
 import api from "@/services/api";
 
 const getAgent = async (username: string) => {
-  const response = await api.get(`/agent/${username}`);
-
-  return response.data;
+  try {
+    const response = await api.get(`/agent/${username}`);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching agent:", error.message);
+    return null;
+  }
 };
 
 const getQrCode = async () => {
-  const response = await api.get(`/whatsapp/generate-qrcode`);
-
-  return response.data;
+  try {
+    const response = await api.get(`/whatsapp/generate-qrcode`);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching QR code:", error.message);
+    return null;
+  }
 };
-
 type tParams = Promise<{ agent: string }>;
 
 export default async function AgentPage(props: { params: tParams }) {
