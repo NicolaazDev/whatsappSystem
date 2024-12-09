@@ -4,55 +4,55 @@
   @font-face {
     font-family: "Poppins Thin";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Thin.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Thin.ttf");
   }
 
   @font-face {
     font-family: "Poppins ExtraLight";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-ExtraLight.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-ExtraLight.ttf");
   }
 
   @font-face {
     font-family: "Poppins Light";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Light.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Light.ttf");
   }
 
   @font-face {
     font-family: "Poppins Regular";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Regular.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Regular.ttf");
   }
 
   @font-face {
     font-family: "Poppins Medium";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Medium.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Medium.ttf");
   }
 
   @font-face {
     font-family: "Poppins SemiBold";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-SemiBold.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-SemiBold.ttf");
   }
 
   @font-face {
     font-family: "Poppins Bold";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Bold.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Bold.ttf");
   }
 
   @font-face {
     font-family: "Poppins ExtraBold";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-ExtraBold.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-ExtraBold.ttf");
   }
 
   @font-face {
     font-family: "Poppins Black";
     font-style: normal;
-    src: url("../../public/assets/fonts/poppins/Poppins-Black.ttf");
+    src: url("../../public/assets/fonts/Poppins/Poppins-Black.ttf");
   }
 
   /* Futura Font */
