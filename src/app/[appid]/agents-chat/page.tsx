@@ -164,7 +164,7 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
           {selectedAgent ? (
             <>
               <h2 className="text-xl font-bold mb-4 w-full center !justify-between px-5">
-                Mensagens de {selectedAgent.name}
+                Mensagens de {selectedAgent.username}
                 {userPerm && (
                   <button
                     onClick={downloadBackupAgents}

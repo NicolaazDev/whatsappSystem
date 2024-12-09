@@ -11,6 +11,17 @@ import api from "@/services/api";
 import { useRouter } from "next/navigation";
 import { loadFromLocalStorage } from "@/services/storage";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 const schema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -22,6 +33,9 @@ type FormData = z.infer<typeof schema>;
 
 export default function UserPage({ params }: { params: { appid: string } }) {
   const { appid } = params;
+
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
 
   const {
     register,
@@ -60,12 +74,16 @@ export default function UserPage({ params }: { params: { appid: string } }) {
 
     const response = await api.post("/agent/register", {
       username: data.name,
+      appId: appid,
       email: data.email,
       password: data.password,
       phoneNumber: data.phoneNumber,
     });
 
     console.log(response);
+
+    setOpen(true);
+    setUrl(response.data.urlConnection);
 
     await api.post(`/application/${appid}/add-agent`, {
       agentId: response.data.agent._id,
@@ -78,6 +96,32 @@ export default function UserPage({ params }: { params: { appid: string } }) {
 
   return (
     <main className="overflow-hidden hero">
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Url de conexão do agente</AlertDialogTitle>
+            <AlertDialogDescription>
+              <div className="p-5 rounded-xl border border-solid border-gray-200">
+                <input
+                  type="text"
+                  value={url}
+                  className="w-full p-2 text-center bg-transparent outline-none"
+                  readOnly
+                />
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+              }}
+            >
+              Copiar URL
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="max-w-[1440px] relative mx-auto py-4 h-screen center-col">
         <div className="w-full center">
           <div className=" px-4 py-10 w-full center-col">

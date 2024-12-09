@@ -8,7 +8,7 @@ import InputField from "@/components/inputField";
 
 import api from "@/services/api";
 import { saveToLocalStorage } from "@/services/storage";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
