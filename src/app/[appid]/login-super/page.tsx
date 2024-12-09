@@ -8,7 +8,6 @@ import InputField from "@/components/inputField";
 import api from "@/services/api";
 import { saveToLocalStorage } from "@/services/storage";
 import { useRouter } from "next/navigation";
-import { use } from "react";
 
 const schema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -17,18 +16,14 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function UserPage({
-  params,
-}: {
-  params: Promise<{ appid: string }>;
-}) {
+export default function UserPage({ params }: { params: { appid: string } }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const { appid } = use(params);
+  const { appid } = params;
 
   const router = useRouter();
 
