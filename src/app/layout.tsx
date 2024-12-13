@@ -7,8 +7,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@medusajs/ui";
 
 export const metadata: Metadata = {
-  title: "Whatsapp Automate",
-  description: " Whatsapp Automate",
+  title: "SpyChat",
+  description: "SpyChat",
 };
 
 export default function RootLayout({

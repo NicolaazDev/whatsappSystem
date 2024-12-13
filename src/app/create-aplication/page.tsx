@@ -32,6 +32,15 @@ const schema = z.object({
   plan: z.enum(["basic", "pro", "enterprise"], {
     required_error: "Selecione um plano",
   }),
+  phoneNumber: z
+    .string({ required_error: "O telefone é obrigatorio" })
+    .min(6, "Telefone deve ter pelo menos 10 caracteres"),
+  enterprise: z.string({ required_error: "O nome da empresa é obrigatorio" }),
+  document: z
+    .string({ required_error: "O CNPJ/CPF é obrigatorio" })
+    .min(14, "CNPJ deve ter pelo menos 14 caracteres"),
+  planningType: z.string({ required_error: "O Tempo do plano é obrigatorio" }),
+  status: z.string({ required_error: "O status do plano é obrigatorio" }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -52,6 +61,12 @@ export default function UserPage() {
       username: data.name,
       password: data.password,
       plan: data.plan,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      enterprise: data.enterprise,
+      document: data.document,
+      planningType: data.planningType,
+      status: data.status,
       admins: [],
       agents: [],
       subs: [],
@@ -65,7 +80,7 @@ export default function UserPage() {
   };
 
   return (
-    <main className="overflow-hidden hero">
+    <main className="min-h-screen bg-gray-50 w-full">
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -93,7 +108,7 @@ export default function UserPage() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <div className="max-w-[1440px] relative mx-auto py-4 h-screen center-col">
+      <div className="max-w-[1440px] relative mx-auto py-4 h-auto center-col">
         <div className="w-full center">
           <div className=" px-4 py-10 w-full center-col">
             <h1 className="font-poppinsBold max-w-[50%] text-center text-5xl">
@@ -112,7 +127,13 @@ export default function UserPage() {
                 register={register}
                 error={errors.name}
               />
-
+              <InputField
+                label="Senha"
+                id="password"
+                type="password"
+                register={register}
+                error={errors.password}
+              />
               <InputField
                 label="Email"
                 id="email"
@@ -121,12 +142,67 @@ export default function UserPage() {
                 error={errors.email}
               />
               <InputField
-                label="Senha"
-                id="password"
-                type="password"
+                label="Telefone"
+                id="phoneNumber"
                 register={register}
-                error={errors.password}
+                error={errors.phoneNumber}
               />
+              <InputField
+                label="Empresa"
+                id="enterprise"
+                register={register}
+                error={errors.enterprise}
+              />
+              <InputField
+                label="CNPJ/CPF"
+                id="document"
+                register={register}
+                error={errors.document}
+              />
+
+              <div className="my-4">
+                <label htmlFor="plan" className="block text-gray-700 mb-2">
+                  Tipo de Plano
+                </label>
+                <select
+                  id="planningType"
+                  {...register("planningType")}
+                  className={`w-full p-3 bg-[#f1f1f1] rounded-lg border border-solid h-[55px] ${
+                    errors.planningType ? "border-red-500" : "border-gray-400"
+                  }`}
+                >
+                  <option value="">Selecione um plano</option>
+                  <option value="mensal">Mensal</option>
+                  <option value="trimensal">Trimensal</option>
+                  <option value="anual">Anual</option>
+                </select>
+                {errors.planningType && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors.planningType.message}
+                  </span>
+                )}
+              </div>
+              <div className="my-4">
+                <label htmlFor="plan" className="block text-gray-700 mb-2">
+                  Status
+                </label>
+                <select
+                  id="status"
+                  {...register("status")}
+                  className={`w-full p-3 bg-[#f1f1f1] rounded-lg border border-solid h-[55px] ${
+                    errors.status ? "border-red-500" : "border-gray-400"
+                  }`}
+                >
+                  <option value="">Selecione um plano</option>
+                  <option value="active">Ativo</option>
+                  <option value="disabled">Desativado</option>
+                </select>
+                {errors.status && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors.status.message}
+                  </span>
+                )}
+              </div>
               <div className="my-4">
                 <label htmlFor="plan" className="block text-gray-700 mb-2">
                   Plano

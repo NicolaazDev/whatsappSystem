@@ -111,8 +111,12 @@ export default function UserPage({ params }: { params: { appid: string } }) {
             <p className="font-poppinsLight text-center mb-5 mt-3 opacity-90 text-[18px]">
               Por favor, faça login para continuar
             </p>
-
-            <button className="w-full max-w-2xl cursor-pointer shadow-lg mt-7 shadow-gray-100 hover:border-green-500 hover:shadow-green-200 transition-all h-[65px] bg-green-50 rounded-3xl border-green-300 duration-700 border border-solid center space-x-3">
+            <a
+              href={`https://api.whatsapp.com/send?phone=557931423677`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full max-w-2xl cursor-pointer shadow-lg mt-7 shadow-gray-100 hover:border-green-500 hover:shadow-green-200 transition-all h-[65px] bg-green-50 rounded-3xl border-green-300 duration-700 border border-solid center space-x-3"
+            >
               <FaWhatsapp
                 size={34}
                 strokeWidth={1}
@@ -121,7 +125,7 @@ export default function UserPage({ params }: { params: { appid: string } }) {
               <span className="font-poppinsRegular text-green-900 text-[18px]">
                 Solicitar acesso à plataforma
               </span>
-            </button>
+            </a>
 
             <div className="w-full h-[1px] bg-gray-200 my-6 mt-[40px] center">
               <span className="px-2 bg-background">ou</span>
