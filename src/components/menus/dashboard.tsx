@@ -191,7 +191,7 @@ export default function Dashboard({ appid }: { appid: string }) {
               const daysRemaining = differenceInDays(expirationDate, now);
 
               if (daysRemaining > 0) {
-                return `Vai expirar daqui ${daysRemaining} ${
+                return `Expira em ${daysRemaining} ${
                   daysRemaining === 1 ? "dia" : "dias"
                 }`;
               } else {

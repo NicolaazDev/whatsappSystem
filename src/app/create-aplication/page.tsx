@@ -18,11 +18,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { toast } from "@medusajs/ui";
 
 const schema = z.object({
   name: z
     .string({ required_error: "O nome é obrigatorio" })
     .min(2, "Nome deve ter pelo menos 2 caracteres"),
+  token: z
+    .string({
+      required_error: "O Token é obrigatorio para criar uma aplicação",
+    })
+    .min(2, "Token deve ter pelo menos 2 caracteres"),
   email: z
     .string({ required_error: "O email é obrigatorio" })
     .email("Email inválido"),
@@ -76,7 +82,21 @@ export default function UserPage() {
     setUrl(response.data.url);
     setData(response.data.application);
 
+    if (response.status === 401) {
+      toast.error("Token inválido", {
+        description: "Token informado é inválido!",
+      });
+
+      return;
+    }
+
     console.log(response);
+
+    if (response.status == 201 || response.status == 200) {
+      toast.success("Successo", {
+        description: "Aplicação criada com sucesso!",
+      });
+    }
   };
 
   return (
@@ -121,6 +141,15 @@ export default function UserPage() {
               onSubmit={handleSubmit(onSubmit)}
               className="w-full max-w-2xl mt-6 py-4"
             >
+              <InputField
+                label="Token"
+                tooltip={
+                  "O Token é obrigatório para criar uma aplicação, Token seguro por JWT, não compartilhe com ninguem"
+                }
+                id="token"
+                register={register}
+                error={errors.token}
+              />
               <InputField
                 label="Usuário"
                 id="name"
