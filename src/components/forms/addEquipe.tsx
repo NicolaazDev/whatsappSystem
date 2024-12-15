@@ -71,8 +71,6 @@ export const AddEquipeForm = ({
       sub: data.super,
     });
 
-    console.log(response);
-
     await api.post(`/application/${appid}/add-equipe`, {
       equipeId: response.data.equipe._id,
     });

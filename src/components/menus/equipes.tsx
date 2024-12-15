@@ -49,7 +49,7 @@ export default function Equipes({ appid }: { appid: string }) {
 
   const fetchEquipes = async () => {
     const res = await api.get(`application/${appid}/equipes`);
-    console.log(res.data);
+
     setData(res.data);
   };
 
@@ -85,8 +85,6 @@ export default function Equipes({ appid }: { appid: string }) {
   const listAgentsAdd = async (equipeId: string) => {
     try {
       const res = await api.get(`equipe/${equipeId}`);
-
-      console.log(res.data);
 
       await setEquipeDataAdd(res.data.equipe);
 

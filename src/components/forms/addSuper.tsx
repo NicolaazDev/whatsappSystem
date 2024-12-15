@@ -47,8 +47,6 @@ export const AddSuperForm = ({
       password: data.password,
     });
 
-    console.log(response);
-
     await api.post(`/application/${appid}/add-sub`, {
       subId: response.data.sub._id,
     });

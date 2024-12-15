@@ -37,8 +37,6 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
   const getAgents = async () => {
     const response = await api.get(`/agent/id/${id}`);
 
-    console.log(response.data);
-
     return response.data.agent;
   };
 
@@ -67,16 +65,12 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
   };
 
   const downloadBackupAgents = async (selectedAgent: any) => {
-    console.log(selectedAgent);
-
     try {
       const agent = await api.get(`/agent/id/${selectedAgent}`);
 
       const response = await api.get(`/agent/${selectedAgent}/backup`, {
         responseType: "blob",
       });
-
-      console.log(agent);
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");

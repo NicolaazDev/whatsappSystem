@@ -38,8 +38,6 @@ export default function UserPage({ params }: { params: { appid: string } }) {
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-
     const routes = {
       admin: { route: "/admin/login", key: "admin" },
       agent: { route: "/agent/login", key: "agent" },
@@ -53,8 +51,6 @@ export default function UserPage({ params }: { params: { appid: string } }) {
         username: data.name,
         password: data.password,
       });
-
-      console.log(response);
 
       const userData = response.data[key];
 

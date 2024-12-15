@@ -69,8 +69,6 @@ export const AddAgentForm = ({
       phoneNumber: data.phoneNumber,
     });
 
-    console.log(response);
-
     await api.post(`/application/${appid}/add-agent`, {
       agentId: response.data.agent._id,
     });

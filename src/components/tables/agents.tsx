@@ -53,8 +53,6 @@ export function DataTableAgents<TData, TValue>({
   const fetchApps = async (appId: string) => {
     const res = await api.get(`application/${appId}`);
     setApp(res.data);
-
-    console.log(res.data);
   };
 
   const [userPerm, setPerm] = useState<any>(true);
