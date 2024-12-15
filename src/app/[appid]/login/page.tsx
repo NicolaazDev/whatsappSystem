@@ -54,6 +54,8 @@ export default function UserPage({ params }: { params: { appid: string } }) {
         password: data.password,
       });
 
+      console.log(response);
+
       const userData = response.data[key];
 
       if (userData.desativated) {

@@ -137,7 +137,7 @@ export default function EquipesSub({ appid }: { appid: string }) {
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 className="text-red-500"
                 onClick={() => {
                   setSelectEquipesId(user._id);
@@ -145,7 +145,7 @@ export default function EquipesSub({ appid }: { appid: string }) {
                 }}
               >
                 <TrashIcon strokeWidth={1} /> Deletar equipe
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         );

@@ -4,8 +4,9 @@ import api from "@/services/api";
 import { loadFromLocalStorage } from "@/services/storage";
 import { Button } from "@medusajs/ui";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { ArrowLeft, CircleOff, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ChatPage({ params }: { params: { appid: string } }) {
   const { appid } = params;
@@ -27,10 +28,18 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
     }
   };
 
-  const getAgents = async () => {
-    const response = await api.get(`/application/${appid}/agents`);
+  const paramsPage = useSearchParams();
 
-    return response.data;
+  const id = paramsPage.get("id");
+
+  const router = useRouter();
+
+  const getAgents = async () => {
+    const response = await api.get(`/agent/id/${id}`);
+
+    console.log(response.data);
+
+    return response.data.agent;
   };
 
   useEffect(() => {
@@ -86,12 +95,22 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
     }
   };
 
+  if (!agents) {
+    return <p>Carregando...</p>;
+  }
+
   return (
-    <main className="overflow-hidden hero w-full">
-      <div className="w-full relative mx-auto py-4 px-4 h-screen grid grid-cols-[370px_1fr]">
+    <main className="overflow-hidden hero w-full relative">
+      <div
+        onClick={() => router.replace(`/${appid}/app`)}
+        className="absolute top-4 left-12 border border-solid cursor-pointer border-gray-200 rounded-md py-2 px-4 flex items-center space-x-2"
+      >
+        <ArrowLeft /> <span>Voltar</span>
+      </div>
+      <div className="w-full relative mx-auto py-4 px-4 mt-10 h-screen ">
         {/* Lista de Agentes */}
-        <div className="agents w-full border-r px-3 border-gray-200 rounded-xl shadow-lg border border-solid overflow-y-auto">
-          <div className="w-full mt-6 mb-6 border-b border-gray-300 flex items-center space-x-2">
+        {/* <div className="agents w-full border-r px-3 border-gray-200 rounded-xl shadow-lg border border-solid overflow-y-auto"> */}
+        {/* <div className="w-full mt-6 mb-6 border-b border-gray-300 flex items-center space-x-2">
             <Input
               type="search"
               className="pl-4 w-full border border-solid border-gray-400 h-[45px] rounded-md  text-sm"
@@ -105,9 +124,9 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
             >
               <Search size={19} strokeWidth={1} />
             </Button>
-          </div>
+          </div> */}
 
-          {filteredAgents.length > 0 ? (
+        {/* {filteredAgents.length > 0 ? (
             filteredAgents.map((agent: any) => (
               <div
                 key={agent._id}
@@ -132,65 +151,75 @@ export default function ChatPage({ params }: { params: { appid: string } }) {
             <p className="text-gray-500 text-center mt-4">
               Nenhum agente encontrado.
             </p>
-          )}
-        </div>
+          )} */}
+        {/* </div> */}
 
         {/* Chat do Agente Selecionado */}
         <div className="!w-full p-4 overflow-y-auto">
-          {selectedAgent ? (
+          {agents ? (
             <>
               <h2 className="text-xl w-full font-poppinsLight mb-4 center !justify-between px-5">
-                Mensagens de {selectedAgent.username}
+                Mensagens de {agents.username}
                 {userPerm && (
                   <Button
                     onClick={() => {
                       console.log("Baixando conversas...");
-                      downloadBackupAgents(selectedAgent._id);
+                      downloadBackupAgents(agents._id);
                     }}
                     className="text-blue-500 font-poppinsLight transition-all hover:text-blue-700 text-[15px] underline cursor-pointer"
                   >
-                    Baixar conversas de {selectedAgent.username}
+                    Baixar conversas de {agents.username}
                   </Button>
                 )}
               </h2>
               <ul className="space-y-3">
-                {selectedAgent.messages.map((msg: any) => (
-                  <li
-                    key={msg.id}
-                    className={`p-3 rounded-lg center-col ${
-                      msg.status === "sent"
-                        ? "bg-blue-100 self-end !items-end text-right"
-                        : "bg-gray-100 self-start !items-start text-left"
-                    }`}
-                  >
-                    {msg.type === "text" ? (
-                      msg.content
-                    ) : msg.type === "image" ? (
-                      <img
-                        src={`data:image/jpeg;base64,${msg.content}`}
-                        className="h-auto w-[300px] object-contain rounded-lg"
-                      />
-                    ) : msg.type === "audio" ? (
-                      <audio controls className="w-full">
-                        <source
-                          src={`data:audio/mpeg;base64,${msg.content}`}
-                          type="audio/mpeg"
+                {agents.messages && agents.messages.length > 0 ? (
+                  agents.messages.map((msg: any) => (
+                    <li
+                      key={msg.id}
+                      className={`p-3 rounded-lg center-col ${
+                        msg.status === "sent"
+                          ? "bg-blue-100 self-end !items-end text-right"
+                          : "bg-gray-100 self-start !items-start text-left"
+                      }`}
+                    >
+                      {msg.type === "text" ? (
+                        msg.content
+                      ) : msg.type === "image" ? (
+                        <img
+                          src={`data:image/jpeg;base64,${msg.content}`}
+                          className="h-auto w-[300px] object-contain rounded-lg"
                         />
-                        Your browser does not support the audio element.
-                      </audio>
-                    ) : null}
-                    <div className="text-xs text-gray-400 mt-1">
-                      {new Date(msg.timestamp).toLocaleTimeString()}
-                    </div>
-                  </li>
-                ))}
+                      ) : msg.type === "audio" ? (
+                        <audio controls className="w-full">
+                          <source
+                            src={`data:audio/mpeg;base64,${msg.content}`}
+                            type="audio/mpeg"
+                          />
+                          Your browser does not support the audio element.
+                        </audio>
+                      ) : null}
+                      <div className="text-xs text-gray-400 mt-1">
+                        {new Date(msg.timestamp).toLocaleTimeString()}
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <div className="px-5 h-[300px] center-col">
+                    <CircleOff
+                      size={190}
+                      strokeWidth={1}
+                      className="opacity-80"
+                    />
+                    <p className="text-xl mt-3">
+                      {" "}
+                      Nenhuma conversa encontrada{" "}
+                    </p>
+                  </div>
+                )}
               </ul>
             </>
-          ) : (
-            <p className="text-gray-500 text-center h-full center">
-              Selecione um agente para visualizar as mensagens.
-            </p>
-          )}
+          ) : null}
         </div>
       </div>
     </main>

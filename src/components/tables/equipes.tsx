@@ -24,12 +24,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Input } from "@medusajs/ui";
 
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/services/api";
+import { loadFromLocalStorage } from "@/services/storage";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +47,22 @@ export function DataTableEquipes<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
 
-  console.log(data);
+  const [userPerm, setPerm] = useState<any>(true);
+
+  const getPerm = async () => {
+    const perm = await loadFromLocalStorage("cargo");
+
+    if (perm == "sub") {
+      setPerm(false);
+      return;
+    } else {
+      setPerm(true);
+    }
+  };
+
+  useEffect(() => {
+    getPerm();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -135,12 +151,14 @@ export function DataTableEquipes<TData, TValue>({
           />
         </div>
         <div className="space-x-2 center">
-          <ButtonUI
-            onClick={() => setIsOpen(true)}
-            className="font-poppinsRegular px-5"
-          >
-            Adicionar equipe
-          </ButtonUI>
+          {userPerm && (
+            <ButtonUI
+              onClick={() => setIsOpen(true)}
+              className="font-poppinsRegular px-5"
+            >
+              Adicionar equipe
+            </ButtonUI>
+          )}
           <AnimatePresence>
             {table.getFilteredSelectedRowModel().rows.length > 0 ? (
               <motion.div

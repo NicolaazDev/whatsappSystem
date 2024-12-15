@@ -57,7 +57,7 @@ export function AppSidebar({
         ];
       case "sub":
         return [
-          { title: "Dashboard", url: "dashboard", icon: LayoutDashboard },
+          // { title: "Dashboard", url: "dashboard", icon: LayoutDashboard },
           { title: "Equipes", url: "equipesSub", icon: UsersRound },
           { title: "Agentes", url: "agenteSub", icon: Users },
         ];

@@ -30,6 +30,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { Input } from "@medusajs/ui";
 import api from "@/services/api";
+import { loadFromLocalStorage } from "@/services/storage";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -55,6 +56,23 @@ export function DataTableAgents<TData, TValue>({
 
     console.log(res.data);
   };
+
+  const [userPerm, setPerm] = useState<any>(true);
+
+  const getPerm = async () => {
+    const perm = await loadFromLocalStorage("cargo");
+
+    if (perm == "sub") {
+      setPerm(false);
+      return;
+    } else {
+      setPerm(true);
+    }
+  };
+
+  useEffect(() => {
+    getPerm();
+  }, []);
 
   useEffect(() => {
     fetchApps(appId);
@@ -147,13 +165,15 @@ export function DataTableAgents<TData, TValue>({
           />
         </div>
         <div className="space-x-2 center">
-          <ButtonUI
-            onClick={() => setIsOpen(true)}
-            className="font-poppinsRegular px-5"
-            disabled={!app || app.limitAgents <= app.agents.length}
-          >
-            {app ? "Adicionar agente" : "Carregando..."}
-          </ButtonUI>
+          {userPerm && (
+            <ButtonUI
+              onClick={() => setIsOpen(true)}
+              className="font-poppinsRegular px-5"
+              disabled={!app || app.limitAgents <= app.agents.length}
+            >
+              {app ? "Adicionar agente" : "Carregando..."}
+            </ButtonUI>
+          )}
           <AnimatePresence>
             {table.getFilteredSelectedRowModel().rows.length > 0 ? (
               <motion.div
@@ -183,7 +203,7 @@ export function DataTableAgents<TData, TValue>({
           </AnimatePresence>
         </div>
         <div>
-          {app ? (
+          {userPerm && app ? (
             app.limitAgents <= app.agents.length ? (
               <Badge
                 className="font-poppinsMedium h-full border border-solid border-red-500"
@@ -200,14 +220,7 @@ export function DataTableAgents<TData, TValue>({
                 plano
               </Badge>
             )
-          ) : (
-            <Badge
-              className="font-poppinsMedium border border-solid border-gray-500"
-              color="grey"
-            >
-              Carregando informações...
-            </Badge>
-          )}
+          ) : null}
         </div>
       </div>
       <div className="rounded-md border w-full">

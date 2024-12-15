@@ -21,6 +21,8 @@ import {
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
+import { AgentsList } from "../modals/agentsManager";
+import { AgentsListAdd } from "../modals/agentsManagerAdd";
 type User = {
   _id: string;
   username: string;
@@ -56,6 +58,39 @@ export default function Equipes({ appid }: { appid: string }) {
       await api.post(`application/${appid}/equipe`, { equipeId });
 
       fetchEquipes();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [listAgentsModal, setListAgentsModal] = useState(false);
+  const [listAgentsModalAdd, setListAgentsModalAdd] = useState(false);
+  const [equipeData, setEquipeData] = useState(null);
+  const [equipeDataAdd, setEquipeDataAdd] = useState(null);
+
+  const listAgents = async (equipeId: string) => {
+    try {
+      const res = await api.get(`equipe/${equipeId}`);
+
+      console.log(res.data);
+
+      await setEquipeData(res.data.equipe);
+
+      setListAgentsModal(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const listAgentsAdd = async (equipeId: string) => {
+    try {
+      const res = await api.get(`equipe/${equipeId}`);
+
+      console.log(res.data);
+
+      await setEquipeDataAdd(res.data.equipe);
+
+      setListAgentsModalAdd(true);
     } catch (err) {
       console.error(err);
     }
@@ -106,19 +141,19 @@ export default function Equipes({ appid }: { appid: string }) {
       accessorKey: "description",
       header: "Descrição",
     },
-    {
-      id: "actions_btn",
-      header: "Chat",
-      cell: ({ row }) => (
-        <Button
-          variant="secondary"
-          className="font-poppinsLight"
-          onClick={() => router.push(`/${appid}/agents-chat`)}
-        >
-          Ver conversas
-        </Button>
-      ),
-    },
+    // {
+    //   id: "actions_btn",
+    //   header: "Chat",
+    //   cell: ({ row }) => (
+    //     <Button
+    //       variant="secondary"
+    //       className="font-poppinsLight"
+    //       onClick={() => router.push(`/${appid}/agents-chat`)}
+    //     >
+    //       Ver conversas
+    //     </Button>
+    //   ),
+    // },
     {
       accessorKey: "sub.username",
       header: "Supervisor",
@@ -141,6 +176,12 @@ export default function Equipes({ appid }: { appid: string }) {
                 onClick={() => navigator.clipboard.writeText(user._id)}
               >
                 Copiar ID
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => listAgents(user._id)}>
+                Remover Agentes
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => listAgentsAdd(user._id)}>
+                Adicionar Agentes
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
@@ -180,6 +221,26 @@ export default function Equipes({ appid }: { appid: string }) {
           </Prompt.Footer>
         </Prompt.Content>
       </Prompt>
+
+      {equipeData && (
+        <AgentsList
+          appid={appid}
+          data={equipeData}
+          isOpen={listAgentsModal}
+          fetchData={fetchEquipes}
+          onClose={() => setListAgentsModal(false)}
+        />
+      )}
+
+      {equipeDataAdd && (
+        <AgentsListAdd
+          appid={appid}
+          data={equipeDataAdd}
+          isOpen={listAgentsModalAdd}
+          fetchData={fetchEquipes}
+          onClose={() => setListAgentsModalAdd(false)}
+        />
+      )}
 
       <AddEquipeModal appid={appid} isOpen={isOpen} onClose={onClose} />
 

@@ -120,33 +120,33 @@ export default function AgentsSub({ appid }: { appid: string }) {
       accessorKey: "email",
       header: "Email",
     },
-    {
-      accessorKey: "password",
-      header: "Senha",
-      cell: ({ row }) => {
-        const [showPassword, setShowPassword] = useState(false);
+    // {
+    //   accessorKey: "password",
+    //   header: "Senha",
+    //   cell: ({ row }) => {
+    //     const [showPassword, setShowPassword] = useState(false);
 
-        return (
-          <div className="flex items-center">
-            <span
-              style={{ width: "100px" }} // Define uma largura fixa
-              className="block text-ellipsis overflow-hidden whitespace-nowrap"
-            >
-              {showPassword
-                ? row.getValue("password") // Mostra a senha
-                : "••••••••••••"}
-            </span>
-            <button
-              type="button"
-              className="ml-2"
-              onClick={() => setShowPassword((prevState) => !prevState)}
-            >
-              <EyeIcon className="h-4 w-4" />
-            </button>
-          </div>
-        );
-      },
-    },
+    //     return (
+    //       <div className="flex items-center">
+    //         <span
+    //           style={{ width: "100px" }} // Define uma largura fixa
+    //           className="block text-ellipsis overflow-hidden whitespace-nowrap"
+    //         >
+    //           {showPassword
+    //             ? row.getValue("password") // Mostra a senha
+    //             : "••••••••••••"}
+    //         </span>
+    //         <button
+    //           type="button"
+    //           className="ml-2"
+    //           onClick={() => setShowPassword((prevState) => !prevState)}
+    //         >
+    //           <EyeIcon className="h-4 w-4" />
+    //         </button>
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       id: "actions",
       cell: ({ row }) => {
@@ -175,7 +175,7 @@ export default function AgentsSub({ appid }: { appid: string }) {
                 Copiar Url
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 onClick={() => {
                   setSelectedAgentId2(user._id);
                   setIsOpenNumber(true);
@@ -193,7 +193,7 @@ export default function AgentsSub({ appid }: { appid: string }) {
                 }}
               >
                 <TrashIcon strokeWidth={1} /> Deletar agente
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         );

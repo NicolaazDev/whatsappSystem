@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AppSidebar } from "@/components/sidebar";
 import { SidebarInset } from "@/components/ui/sidebar";
@@ -13,11 +13,25 @@ import Equipes from "@/components/menus/equipes";
 import Agents from "@/components/menus/agentes";
 import EquipesSub from "@/components/menus/equipesSub";
 import AgentsSub from "@/components/menus/agentesSub";
+import { loadFromLocalStorage } from "@/services/storage";
 
 export default function AdminPage({ params }: { params: { appid: string } }) {
   const { appid } = params;
 
   const [activeMenu, setActiveMenu] = useState<string>("dashboard");
+
+  const getPerm = async () => {
+    const perm = await loadFromLocalStorage("cargo");
+
+    if (perm == "sub") {
+      setActiveMenu("equipesSub");
+      return;
+    }
+  };
+
+  useEffect(() => {
+    getPerm();
+  }, []);
 
   const renderContent = () => {
     switch (activeMenu) {

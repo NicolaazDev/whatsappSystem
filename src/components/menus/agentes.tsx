@@ -122,7 +122,9 @@ export default function Agents({ appid }: { appid: string }) {
         <Button
           variant="secondary"
           className="font-poppinsLight"
-          onClick={() => router.push(`/${appid}/agents-chat`)}
+          onClick={() =>
+            router.push(`/${appid}/agents-chat?id=${row.getValue("_id")}`)
+          }
         >
           Ver conversas
         </Button>

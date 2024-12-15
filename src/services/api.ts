@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://whatsapp-backend-l6px.onrender.com/api",
+  baseURL: "http://localhost:5000/api",
   timeout: 100000,
 });
 
