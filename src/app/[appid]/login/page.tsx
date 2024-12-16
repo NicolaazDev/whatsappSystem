@@ -154,7 +154,7 @@ export default function UserPage({ params }: { params: { appid: string } }) {
               <InputField
                 label="Usuário"
                 id="name"
-                placeholder="@usuário"
+                placeholder="usuário"
                 type="text"
                 register={register}
                 error={errors.name}
