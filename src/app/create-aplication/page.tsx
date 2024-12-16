@@ -68,6 +68,7 @@ export default function UserPage() {
       password: data.password,
       plan: data.plan,
       email: data.email,
+      token: data.token,
       phoneNumber: data.phoneNumber,
       enterprise: data.enterprise,
       document: data.document,
@@ -83,9 +84,11 @@ export default function UserPage() {
     setData(response.data.application);
 
     if (response.status === 401) {
-      toast.error("Token inválido", {
-        description: "Token informado é inválido!",
-      });
+      // toast.error("Token inválido", {
+      //   description: "Token informado é inválido!",
+      // });
+
+      alert("Token inválido");
 
       return;
     }
