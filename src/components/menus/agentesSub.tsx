@@ -22,6 +22,7 @@ import { DataTableAgents } from "@/components/tables/agents";
 import { AddAgentModal } from "@/components/modals/addAgent";
 import { AddNumberModal } from "@/components/modals/addNumber";
 import { loadFromLocalStorage } from "@/services/storage";
+import { useRouter } from "next/navigation";
 
 type User = {
   _id: string;
@@ -79,6 +80,8 @@ export default function AgentsSub({ appid }: { appid: string }) {
     }
   };
 
+  const router = useRouter();
+
   const columns: ColumnDef<User>[] = [
     {
       id: "select",
@@ -111,6 +114,21 @@ export default function AgentsSub({ appid }: { appid: string }) {
 
         return <div className="">#{formatted}</div>;
       },
+    },
+    {
+      id: "actions_btn",
+      header: "Chat",
+      cell: ({ row }) => (
+        <Button
+          variant="secondary"
+          className="font-poppinsLight"
+          onClick={() =>
+            router.push(`/${appid}/agents-chat?id=${row.getValue("_id")}`)
+          }
+        >
+          Ver conversas
+        </Button>
+      ),
     },
     {
       accessorKey: "username",
